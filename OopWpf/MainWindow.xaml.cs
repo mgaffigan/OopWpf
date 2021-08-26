@@ -1,18 +1,7 @@
-﻿using OopWpfCommon;
-using System.AddIn.Contract;
-using System.AddIn.Pipeline;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Esatto.Win32.Com;
+using Itp.WpfCrossProcess;
+using Itp.WpfCrossProcess.IPC;
 using System.Windows;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace OopWpf
 {
@@ -28,7 +17,8 @@ namespace OopWpf
 
         private void btTake_Click(object sender, RoutedEventArgs e)
         {
-            ccMain.Items.Add(new CustomAddInHost(WpfOopAddinConstants.ProgID) { Width = 300, Height = 100 });
+            var child = (IWpfCrossChild)ComInterop.CreateLocalServer("OopWpfServer.WpfAddinHost");
+            ccMain.Items.Add(new ImportedVisualHost(child) { Width = 300, Height = 100 });
         }
     }
 }

@@ -3,11 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OopWpf", "OopWpf\OopWpf.csproj", "{3C51EF8F-2986-4085-84B6-567F46A05014}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itp.WpfCrossProcess.DemoApp", "OopWpf\Itp.WpfCrossProcess.DemoApp.csproj", "{3C51EF8F-2986-4085-84B6-567F46A05014}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OopWpfServer", "OopWpfServer\OopWpfServer.csproj", "{F99F9174-0672-4178-BA46-8B6C18A420D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itp.WpfCrossProcess.DemoServer", "OopWpfServer\Itp.WpfCrossProcess.DemoServer.csproj", "{F99F9174-0672-4178-BA46-8B6C18A420D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OopWpfCommon", "OopWpfCommon\OopWpfCommon.csproj", "{8A2080D6-53A7-4B6D-97D3-E635F35577F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itp.WpfCrossProcess.Common", "OopWpfCommon\Itp.WpfCrossProcess.Common.csproj", "{8A2080D6-53A7-4B6D-97D3-E635F35577F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_ Solution Items", "_ Solution Items", "{C350782B-441C-473A-9AEB-62C6D3A58FB9}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.md = LICENSE.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test Apps", "Test Apps", "{E283C39C-089E-44A2-B305-6E63BD23F330}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{C3022E2C-5626-46BF-A25B-0BBDA9E3A011}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +39,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3C51EF8F-2986-4085-84B6-567F46A05014} = {E283C39C-089E-44A2-B305-6E63BD23F330}
+		{F99F9174-0672-4178-BA46-8B6C18A420D7} = {E283C39C-089E-44A2-B305-6E63BD23F330}
+		{8A2080D6-53A7-4B6D-97D3-E635F35577F1} = {C3022E2C-5626-46BF-A25B-0BBDA9E3A011}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {545ED6E0-052C-47C2-AA5C-4950D7992693}

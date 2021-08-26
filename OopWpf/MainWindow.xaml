@@ -4,14 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OopWpf"
+        xmlns:cpc="clr-namespace:Itp.WpfCrossProcess;assembly=Itp.WpfCrossProcess.Common"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TextBox x:Name="tbHwnd" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="btTake" Content="Button" HorizontalAlignment="Left" Margin="135,10,0,0" VerticalAlignment="Top" Width="75" Click="btTake_Click"/>
-        <local:HwndSourceHost Margin="10,38">
+        <cpc:HwndClippingRegion Margin="10,38">
             <ListBox x:Name="ccMain"/>
-        </local:HwndSourceHost>
+        </cpc:HwndClippingRegion>
         <TextBox x:Name="textBox1" HorizontalAlignment="Left" Margin="10,0,0,10" TextWrapping="Wrap" Text="TextBox" Width="120" Height="23" VerticalAlignment="Bottom"/>
 
     </Grid>

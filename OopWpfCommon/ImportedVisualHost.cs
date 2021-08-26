@@ -1,38 +1,40 @@
-﻿using Esatto.Win32.Com;
-using Esatto.Win32.Windows;
-using OopWpfCommon;
+﻿using Itp.WpfCrossProcess.IPC;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using static Itp.WpfCrossProcess.NativeMethods;
 
-namespace OopWpf
+namespace Itp.WpfCrossProcess
 {
-    internal class CustomAddInHost : HwndHost, IKeyboardInputSink
+    public class ImportedVisualHost : HwndHost, IKeyboardInputSink
     {
         private readonly IntPtr childHwnd;
-        private readonly IWpfOopAddin RemoteInstance;
+        private readonly IWpfCrossChild RemoteInstance;
 
-        static CustomAddInHost()
+        static ImportedVisualHost()
         {
-            Control.IsTabStopProperty.OverrideMetadata(typeof(CustomAddInHost), new FrameworkPropertyMetadata(true));
-            FocusableProperty.OverrideMetadata(typeof(CustomAddInHost), new FrameworkPropertyMetadata(true));
+            Control.IsTabStopProperty.OverrideMetadata(typeof(ImportedVisualHost), new FrameworkPropertyMetadata(true));
+            FocusableProperty.OverrideMetadata(typeof(ImportedVisualHost), new FrameworkPropertyMetadata(true));
         }
 
-        public CustomAddInHost(string progId)
+        public ImportedVisualHost(IWpfCrossChild inst)
         {
-            var inst = (IWpfOopAddin)ComInterop.CreateLocalServer(progId);
+            if (inst == null)
+            {
+                throw new ArgumentNullException(nameof(inst));
+            }
+
             this.childHwnd = inst.Hwnd;
             this.RemoteInstance = inst;
-
             inst.ConnectToHost(new WpfOopAddinHostThunk(this));
         }
 
         protected override HandleRef BuildWindowCore(HandleRef hwndParent)
         {
-            new Win32Window(childHwnd).SetParent(new Win32Window(hwndParent.Handle));
+            SetWindowLong(childHwnd, GWLParameter.GWL_HWNDPARENT, hwndParent.Handle.ToInt32());
             return new HandleRef(this, childHwnd);
         }
 
@@ -50,11 +52,11 @@ namespace OopWpf
         }
 
         // Need to inherit from StandardOleMarshalObject for STA thread / can't do this on CustomAddInHost
-        private class WpfOopAddinHostThunk : StandardOleMarshalObject, IWpfOopAddinHost
+        private class WpfOopAddinHostThunk : StandardOleMarshalObject, IWpfCrossHost
         {
-            private readonly CustomAddInHost Parent;
+            private readonly ImportedVisualHost Parent;
 
-            public WpfOopAddinHostThunk(CustomAddInHost parent)
+            public WpfOopAddinHostThunk(ImportedVisualHost parent)
             {
                 this.Parent = parent;
             }

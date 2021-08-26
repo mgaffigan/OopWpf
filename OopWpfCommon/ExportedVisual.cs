@@ -1,4 +1,4 @@
-﻿using OopWpfCommon;
+﻿using Itp.WpfCrossProcess.IPC;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -6,20 +6,17 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 
-namespace OopWpfServer
+namespace Itp.WpfCrossProcess
 {
-    [ComVisible(true)]
-    [ClassInterface(ClassInterfaceType.None)]
-    [ProgId(WpfOopAddinConstants.ProgID)]
     // StandardOleMarshalObject keeps us single-threaded on the UI thread
-    public class WpfAddinHost : StandardOleMarshalObject, IWpfOopAddin
+    public class ExportedVisual : StandardOleMarshalObject, IWpfCrossChild
     {
         public readonly HwndSource source;
         public IKeyboardInputSink keyboardInputSink => source;
 
         public IntPtr Hwnd => source.Handle;
 
-        public WpfAddinHost(Visual rootVisual)
+        public ExportedVisual(Visual rootVisual)
         {
             var parameters = new HwndSourceParameters("AddIn")
             {
@@ -34,14 +31,14 @@ namespace OopWpfServer
             };
         }
 
-        void IWpfOopAddin.Shutdown()
+        void IWpfCrossChild.Shutdown()
         {
             source.Dispose();
         }
 
-        bool IWpfOopAddin.HasFocusWithin() => this.keyboardInputSink.HasFocusWithin();
+        bool IWpfCrossChild.HasFocusWithin() => this.keyboardInputSink.HasFocusWithin();
 
-        bool IWpfOopAddin.TabInto(/* FocusNavigationDirection */ int direction, ref bool wrapped)
+        bool IWpfCrossChild.TabInto(/* FocusNavigationDirection */ int direction, ref bool wrapped)
         {
             var req = new TraversalRequest((FocusNavigationDirection)direction) { Wrapped = wrapped };
             var result = this.keyboardInputSink.TabInto(req);
@@ -49,18 +46,18 @@ namespace OopWpfServer
             return result;
         }
 
-        void IWpfOopAddin.ConnectToHost(IWpfOopAddinHost host)
+        void IWpfCrossChild.ConnectToHost(IWpfCrossHost host)
         {
             keyboardInputSink.KeyboardInputSite = new SiteProxy(host, keyboardInputSink);
         }
 
         private class SiteProxy : IKeyboardInputSite
         {
-            private IWpfOopAddinHost host;
+            private IWpfCrossHost host;
 
             public IKeyboardInputSink Sink { get; private set; }
 
-            public SiteProxy(IWpfOopAddinHost host, IKeyboardInputSink keyboardInputSink)
+            public SiteProxy(IWpfCrossHost host, IKeyboardInputSink keyboardInputSink)
             {
                 this.host = host;
                 this.Sink = keyboardInputSink;

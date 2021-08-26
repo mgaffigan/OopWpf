@@ -12,16 +12,16 @@ using System.Collections;
 using System.Windows.Media;
 using System.Windows.Controls;
 
-namespace OopWpf
+namespace Itp.WpfCrossProcess
 {
     [ContentProperty(nameof(Child))]
-    public class HwndSourceHost : HwndHost
+    public class HwndClippingRegion : HwndHost
     {
         #region Child
 
         public static DependencyProperty ChildProperty
-            = DependencyProperty.Register(nameof(Child), typeof(FrameworkElement), typeof(HwndSourceHost),
-                new PropertyMetadata(null, (d, e) => ((HwndSourceHost)d).Child_Changed((FrameworkElement)e.NewValue)));
+            = DependencyProperty.Register(nameof(Child), typeof(FrameworkElement), typeof(HwndClippingRegion),
+                new PropertyMetadata(null, (d, e) => ((HwndClippingRegion)d).Child_Changed((FrameworkElement)e.NewValue)));
 
         public FrameworkElement Child
         {
@@ -64,11 +64,11 @@ namespace OopWpf
 
         private class SiteProxy : IKeyboardInputSite
         {
-            private HwndSourceHost host;
+            private HwndClippingRegion host;
 
             public IKeyboardInputSink Sink { get; private set; }
 
-            public SiteProxy(HwndSourceHost host, IKeyboardInputSink keyboardInputSink)
+            public SiteProxy(HwndClippingRegion host, IKeyboardInputSink keyboardInputSink)
             {
                 this.host = host;
                 this.Sink = keyboardInputSink;
