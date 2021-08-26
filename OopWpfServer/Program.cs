@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Esatto.Win32.Com;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,12 @@ namespace OopWpfServer
         public static void Main(string[] args)
         {
             var app = new Application();
-            app.MainWindow = new MainWindow();
-            app.MainWindow.Show();
+            var res = new ClassObjectRegistration(typeof(WpfAddinHost).GUID,
+                ComInterop.CreateClassFactoryFor(() => new WpfAddinHost(new Remote())),
+                CLSCTX.LOCAL_SERVER, REGCLS.MULTIPLEUSE | REGCLS.SUSPENDED);
+            ComInterop.CoResumeClassObjects();
             app.Run();
+            GC.KeepAlive(res);
         }
     }
 }
