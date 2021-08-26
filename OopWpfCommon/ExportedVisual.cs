@@ -33,7 +33,13 @@ namespace Itp.WpfCrossProcess
 
         void IWpfCrossChild.Shutdown()
         {
+            ShutdownInternal();
             source.Dispose();
+        }
+
+        protected virtual void ShutdownInternal()
+        {
+            // no-op
         }
 
         bool IWpfCrossChild.HasFocusWithin() => this.keyboardInputSink.HasFocusWithin();
