@@ -9,5 +9,8 @@ namespace Itp.WpfCrossProcess.IPC
     public interface IWpfCrossHost
     {
         bool OnNoMoreTabStops(/* FocusNavigationDirection */ int direction, ref bool wrapped);
+
+        void InvalidateMeasure();
+        void OnActivated();
     }
 }

@@ -52,6 +52,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DoubleUtil.cs" />
     <Compile Include="HwndClippingRegion.cs" />
     <Compile Include="ImportedVisualHost.cs" />
     <Compile Include="IPC\IWpfCrossChild.cs" />

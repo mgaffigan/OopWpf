@@ -51,6 +51,17 @@ namespace Itp.WpfCrossProcess
             return result;
         }
 
+        protected override Size MeasureOverride(Size constraint)
+        {
+            return RemoteInstance.Measure(constraint);
+        }
+
+        protected override Size ArrangeOverride(Size finalSize)
+        {
+            RemoteInstance.Arrange(finalSize);
+            return base.ArrangeOverride(finalSize);
+        }
+
         // Need to inherit from StandardOleMarshalObject for STA thread / can't do this on CustomAddInHost
         private class WpfOopAddinHostThunk : StandardOleMarshalObject, IWpfCrossHost
         {
@@ -59,6 +70,20 @@ namespace Itp.WpfCrossProcess
             public WpfOopAddinHostThunk(ImportedVisualHost parent)
             {
                 this.Parent = parent;
+            }
+
+            public void InvalidateMeasure()
+            {
+                Parent.InvalidateMeasure();
+            }
+
+            public void OnActivated()
+            {
+                // Shouldn't set keyboard focus, since keyboard focus is outside of our scope.
+                var kf = Keyboard.FocusedElement;
+                var focusManager = FocusManager.GetFocusScope(Parent);
+                var prev = FocusManager.GetFocusedElement(focusManager);
+                FocusManager.SetFocusedElement(focusManager, null);
             }
 
             public bool OnNoMoreTabStops(int direction, ref bool wrapped)
