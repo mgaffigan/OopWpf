@@ -16,7 +16,7 @@ namespace Itp.WpfCrossProcess
         public readonly HwndSource source;
         private readonly UIElement RootVisual;
         private readonly SizeInsulator Insulator;
-        private IWpfCrossHost Host;
+        private IWpfCrossHost? Host;
 
         public IKeyboardInputSink keyboardInputSink => source;
 
@@ -62,7 +62,7 @@ namespace Itp.WpfCrossProcess
         {
             RootVisual.Dispatcher.BeginInvoke(new Action(() =>
             {
-                Host.OnActivated();
+                Host?.OnActivated();
             }));
         }
 
@@ -155,9 +155,9 @@ namespace Itp.WpfCrossProcess
 
         private class SiteProxy : IKeyboardInputSite
         {
-            private IWpfCrossHost host;
+            private IWpfCrossHost? host;
 
-            public IKeyboardInputSink Sink { get; private set; }
+            public IKeyboardInputSink? Sink { get; private set; }
 
             public SiteProxy(IWpfCrossHost host, IKeyboardInputSink keyboardInputSink)
             {
@@ -175,6 +175,7 @@ namespace Itp.WpfCrossProcess
 
             public void Unregister()
             {
+                if (Sink is null) return;
                 this.Sink.KeyboardInputSite = null;
                 this.Sink = null;
                 this.host = null;

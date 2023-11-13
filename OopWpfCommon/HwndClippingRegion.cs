@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Collections;
 using System.Windows.Media;
 using System.Windows.Controls;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Itp.WpfCrossProcess
 {
@@ -50,7 +51,7 @@ namespace Itp.WpfCrossProcess
 
             hwndSource = new HwndSource(wsp);
             hwndSource.SizeToContent = SizeToContent.Manual;
-            hwndInputSink.KeyboardInputSite = new SiteProxy(this, hwndInputSink);
+            hwndInputSink!.KeyboardInputSite = new SiteProxy(this, hwndInputSink);
 
             root = new HwndSourceHostRoot();
             hwndSource.RootVisual = root;
@@ -64,9 +65,9 @@ namespace Itp.WpfCrossProcess
 
         private class SiteProxy : IKeyboardInputSite
         {
-            private HwndClippingRegion host;
+            private HwndClippingRegion? host;
 
-            public IKeyboardInputSink Sink { get; private set; }
+            public IKeyboardInputSink? Sink { get; private set; }
 
             public SiteProxy(HwndClippingRegion host, IKeyboardInputSink keyboardInputSink)
             {
@@ -81,7 +82,10 @@ namespace Itp.WpfCrossProcess
 
             public void Unregister()
             {
-                this.Sink.KeyboardInputSite = null;
+                if (this.Sink is not null)
+                {
+                    this.Sink.KeyboardInputSite = null;
+                }
                 this.Sink = null;
                 this.host = null;
             }
@@ -136,20 +140,20 @@ namespace Itp.WpfCrossProcess
         #region IKeyboardInputSink
 
         protected sealed override bool HasFocusWithinCore()
-            => hwndSource == null ? base.HasFocusWithinCore() : hwndInputSink.HasFocusWithin();
+            => hwndInputSink == null ? base.HasFocusWithinCore() : hwndInputSink.HasFocusWithin();
 
         protected sealed override bool OnMnemonicCore(ref MSG msg, ModifierKeys modifiers)
-            => hwndSource == null ? base.OnMnemonicCore(ref msg, modifiers) : hwndInputSink.OnMnemonic(ref msg, modifiers);
+            => hwndInputSink == null ? base.OnMnemonicCore(ref msg, modifiers) : hwndInputSink.OnMnemonic(ref msg, modifiers);
 
         protected sealed override bool TabIntoCore(TraversalRequest request)
-            => hwndSource == null ? base.TabIntoCore(request) : hwndInputSink.TabInto(request);
+            => hwndInputSink == null ? base.TabIntoCore(request) : hwndInputSink.TabInto(request);
 
         protected sealed override bool TranslateCharCore(ref MSG msg, ModifierKeys modifiers)
-            => hwndSource == null ? base.TranslateCharCore(ref msg, modifiers) : hwndInputSink.TranslateChar(ref msg, modifiers);
+            => hwndInputSink == null ? base.TranslateCharCore(ref msg, modifiers) : hwndInputSink.TranslateChar(ref msg, modifiers);
 
         protected sealed override bool TranslateAcceleratorCore(ref MSG msg, ModifierKeys modifiers)
         {
-            if (hwndSource == null)
+            if (hwndInputSink == null || root is null)
             {
                 return base.TranslateAcceleratorCore(ref msg, modifiers);
             }
@@ -171,16 +175,19 @@ namespace Itp.WpfCrossProcess
 
         #endregion
 
-        protected HwndSource hwndSource;
-        private HwndSourceHostRoot root;
+        protected HwndSource? hwndSource;
+        private HwndSourceHostRoot? root;
 
-        protected IKeyboardInputSink hwndInputSink => hwndSource;
+#if NET
+        [NotNullIfNotNull(nameof(hwndSource))]
+#endif
+        protected IKeyboardInputSink? hwndInputSink => hwndSource;
 
         private class HwndSourceHostRoot : Decorator
         {
             internal bool IsLogicalParentEnabled { get; set; } = true;
 
-            protected override DependencyObject GetUIParentCore()
+            protected override DependencyObject? GetUIParentCore()
             {
                 if (!IsLogicalParentEnabled)
                 {
@@ -190,7 +197,7 @@ namespace Itp.WpfCrossProcess
                 return base.GetUIParentCore();
             }
 
-            public event EventHandler OnMeasure;
+            public event EventHandler? OnMeasure;
 
             protected override void OnChildDesiredSizeChanged(UIElement child)
             {

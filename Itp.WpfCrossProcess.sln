@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31515.178
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itp.WpfCrossProcess.DemoApp", "OopWpf\Itp.WpfCrossProcess.DemoApp.csproj", "{3C51EF8F-2986-4085-84B6-567F46A05014}"
 EndProject
@@ -11,6 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itp.WpfCrossProcess.Common"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_ Solution Items", "_ Solution Items", "{C350782B-441C-473A-9AEB-62C6D3A58FB9}"
 	ProjectSection(SolutionItems) = preProject
+		assets\EsattoCSCommon.targets = assets\EsattoCSCommon.targets
 		LICENSE.md = LICENSE.md
 	EndProjectSection
 EndProject

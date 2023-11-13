@@ -34,7 +34,7 @@ namespace Itp.WpfCrossProcess
 
         protected override HandleRef BuildWindowCore(HandleRef hwndParent)
         {
-            SetWindowLong(childHwnd, GWLParameter.GWL_HWNDPARENT, hwndParent.Handle.ToInt32());
+            SetParent(childHwnd, hwndParent.Handle);
             return new HandleRef(this, childHwnd);
         }
 

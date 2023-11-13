@@ -32,7 +32,7 @@ namespace OopWpf
 
         private void btTake_Click(object sender, RoutedEventArgs e)
         {
-            var child = (IWpfCrossChild)ComInterop.CreateLocalServer("OopWpfServer.WpfAddinHost");
+            var child = ComInterop.CreateLocalServer<IWpfCrossChild>(Guid.Parse("A87689E8-F7C6-34E0-938F-BF17FE842740"));
             ccMain.Items.Add(new ImportedVisualHost(child));
         }
     }
