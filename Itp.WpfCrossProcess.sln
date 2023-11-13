@@ -12,7 +12,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_ Solution Items", "_ Solution Items", "{C350782B-441C-473A-9AEB-62C6D3A58FB9}"
 	ProjectSection(SolutionItems) = preProject
 		assets\EsattoCSCommon.targets = assets\EsattoCSCommon.targets
+		docs\COM.md = docs\COM.md
 		LICENSE.md = LICENSE.md
+		Readme.md = Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test Apps", "Test Apps", "{E283C39C-089E-44A2-B305-6E63BD23F330}"

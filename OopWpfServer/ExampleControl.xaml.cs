@@ -2,9 +2,9 @@
 
 namespace Itp.WpfCrossProcess.DemoServer;
 
-public partial class Remote : UserControl
+public partial class ExampleControl : UserControl
 {
-    public Remote()
+    public ExampleControl()
     {
         InitializeComponent();
     }

@@ -11,7 +11,7 @@ namespace Itp.WpfCrossProcess.IPC
 {
     [ComVisible(true)]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    [Guid("6A3968B5-FEBC-417F-8294-32C3D94B184A")]
+    [Guid("6A3968B5-FEBC-417F-8294-32C3D94B184C")]
     public interface IWpfCrossChild
     {
         IntPtr Hwnd { get; }
@@ -27,7 +27,7 @@ namespace Itp.WpfCrossProcess.IPC
     }
 
     [ComVisible(true)]
-    [Guid("C4019C20-B877-4490-B126-95FA1B7D1142")]
+    [Guid("C4019C20-B877-4490-B126-95FA1B7D1143")]
     public struct IpcSize
     { 
         public readonly double Width, Height;
