@@ -82,7 +82,7 @@ namespace Itp.WpfCrossProcess
             // no-op - implementation in descendants
         }
 
-        bool IWpfCrossChild.HasFocusWithin() => this.keyboardInputSink.HasFocusWithin();
+        bool IWpfCrossChild.HasFocusWithin => this.keyboardInputSink.HasFocusWithin();
 
         bool IWpfCrossChild.TabInto(/* FocusNavigationDirection */ int direction, ref bool wrapped)
         {
@@ -98,8 +98,8 @@ namespace Itp.WpfCrossProcess
             keyboardInputSink.KeyboardInputSite = new SiteProxy(host, keyboardInputSink);
         }
 
-        IpcSize IWpfCrossChild.Measure(IpcSize size) => this.Insulator.MeasureFromHost(size);
-        void IWpfCrossChild.Arrange(IpcSize size) => this.Insulator.TakeSize(size);
+        void IWpfCrossChild.Measure(ref double w, ref double h) => this.Insulator.MeasureFromHost(ref w, ref h);
+        void IWpfCrossChild.Arrange(double w, double h) => this.Insulator.TakeSize(new Size(w, h));
 
         private class SizeInsulator : Decorator
         {
@@ -119,12 +119,17 @@ namespace Itp.WpfCrossProcess
                 this.Child = child;
             }
 
-            internal IpcSize MeasureFromHost(IpcSize constraint)
+            internal void MeasureFromHost(ref double w, ref double h)
             {
+                var constraint = new Size(w, h);
                 this.HostConstraint = constraint;
+
                 Child.Measure(constraint);
-                LastChildSize = Child.DesiredSize;
-                return Child.DesiredSize;
+
+                var result = Child.DesiredSize;
+                LastChildSize = result;
+                w = result.Width;
+                h = result.Height;
             }
 
             protected override Size MeasureOverride(Size _unusedConstraint)
@@ -146,7 +151,7 @@ namespace Itp.WpfCrossProcess
                 return NegotiatedSize;
             }
 
-            internal void TakeSize(IpcSize size)
+            internal void TakeSize(Size size)
             {
                 this.NegotiatedSize = size;
                 InvalidateMeasure();

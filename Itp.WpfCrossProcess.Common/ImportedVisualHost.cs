@@ -53,12 +53,14 @@ namespace Itp.WpfCrossProcess
 
         protected override Size MeasureOverride(Size constraint)
         {
-            return RemoteInstance.Measure(constraint);
+            double w = constraint.Width, h = constraint.Height;
+            RemoteInstance.Measure(ref w, ref h);
+            return new Size(w, h);
         }
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            RemoteInstance.Arrange(finalSize);
+            RemoteInstance.Arrange(finalSize.Width, finalSize.Height);
             return base.ArrangeOverride(finalSize);
         }
 
