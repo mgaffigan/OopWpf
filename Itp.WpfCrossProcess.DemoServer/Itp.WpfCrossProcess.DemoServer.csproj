@@ -10,6 +10,6 @@
     <PackageReference Include="Esatto.Win32.Com" Version="3.0.6" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OopWpfCommon\Itp.WpfCrossProcess.Common.csproj" />
+    <ProjectReference Include="..\Itp.WpfCrossProcess.Common\Itp.WpfCrossProcess.Common.csproj" />
   </ItemGroup>
 </Project>

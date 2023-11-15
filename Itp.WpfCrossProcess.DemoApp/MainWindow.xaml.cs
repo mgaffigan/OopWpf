@@ -5,7 +5,7 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 
-namespace OopWpf
+namespace Itp.WpfCrossProcess.DemoApp
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
