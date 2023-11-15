@@ -11,7 +11,12 @@ shortcuts are forwarded across process boundaries.
 
 ![Diagram](docs/Diagram.png)
 
-## IPC via COM
+## IPC via COM (IDispatch registration-free)
+
+The example application demonstrates using `IDispatch` to avoid having to
+register COM Interfaces.
+
+## IPC via COM (Traditional Registration)
 
 You may host an out-of-process server via COM.  See [COM.md](docs/COM.md) 
 for details.
