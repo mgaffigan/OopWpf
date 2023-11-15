@@ -1,4 +1,5 @@
 ﻿using Esatto.Win32.Com;
+using Itp.WpfCrossProcess.IPC;
 using System;
 using System.Windows;
 
@@ -12,7 +13,7 @@ namespace Itp.WpfCrossProcess.DemoServer
         {
             var ExampleControlClsid = Guid.Parse("A87689E8-F7C6-34E0-938F-BF17FE842740");
             res = new ClassObjectRegistration(ExampleControlClsid,
-                ComInterop.CreateClassFactoryFor(() => new ExportedVisual(new ExampleControl())),
+                ComInterop.CreateStaClassFactoryFor(() => new WpfCrossChildDispatchServerProxy(new ExportedVisual(new ExampleControl()))),
                 CLSCTX.LOCAL_SERVER, REGCLS.MULTIPLEUSE | REGCLS.SUSPENDED);
             ComInterop.CoResumeClassObjects();
         }

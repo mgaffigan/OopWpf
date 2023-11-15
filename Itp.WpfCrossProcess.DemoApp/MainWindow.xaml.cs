@@ -32,8 +32,9 @@ namespace Itp.WpfCrossProcess.DemoApp
 
         private void btTake_Click(object sender, RoutedEventArgs e)
         {
-            var child = ComInterop.CreateLocalServer<IWpfCrossChild>(Guid.Parse("A87689E8-F7C6-34E0-938F-BF17FE842740"));
-            ccMain.Items.Add(new ImportedVisualHost(child));
+            var ExampleControlClsid = Guid.Parse("A87689E8-F7C6-34E0-938F-BF17FE842740");
+            var child = ComInterop.CreateLocalServerWithStart(ExampleControlClsid, "Itp.WpfCrossProcess.DemoServer.exe");
+            ccMain.Items.Add(new ImportedVisualHost(new WpfCrossChildDispatchChildProxy(child)));
         }
     }
 }
