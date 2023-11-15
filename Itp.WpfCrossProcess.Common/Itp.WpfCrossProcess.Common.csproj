@@ -5,11 +5,24 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <!-- Keep assembly version at major version to avoid breaking COM clients -->
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
   </PropertyGroup>
   <Import Project="..\assets\EsattoCSCommon.targets" />
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="dSPACE.Runtime.InteropServices.BuildTasks" Version="1.3.1-alpha.0.6"
+          Condition="'$(TargetFramework)' != 'net462'">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  
   <!-- NetFramework tlbexp cannot work with netcore assemblies. -->
   <!-- https://github.com/dspace-group/dscom works with netcore but not with wpf/winforms -->
   <Target Name="ExportTlb" AfterTargets="CopyFilesToOutputDirectory" Inputs="$(TargetPath)" Outputs="$(OutDir)$(TargetName).tlb"
