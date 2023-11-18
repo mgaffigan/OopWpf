@@ -5,10 +5,11 @@
     <LangVersion>latest</LangVersion>
     <UseWPF>true</UseWPF>
     <BaseOutputPath>..\bin\</BaseOutputPath>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
   <Import Project="..\assets\EsattoCSCommon.targets" />
   <ItemGroup>
-    <PackageReference Include="Esatto.Win32.Com" Version="3.0.7" />
+    <PackageReference Include="Esatto.Win32.Com" Version="3.0.9" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Itp.WpfCrossProcess.Common\Itp.WpfCrossProcess.Common.csproj" />

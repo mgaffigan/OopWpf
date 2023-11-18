@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_ Solution Items", "_ Solut
 		assets\EsattoCSCommon.targets = assets\EsattoCSCommon.targets
 		LICENSE.md = LICENSE.md
 		Readme.md = Readme.md
+		.github\workflows\release.yml = .github\workflows\release.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "COM Test Apps", "COM Test Apps", "{E283C39C-089E-44A2-B305-6E63BD23F330}"

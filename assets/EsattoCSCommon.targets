@@ -5,7 +5,11 @@
     <Company>In Touch Technologies</Company>
     <Copyright>© In Touch Technologies.  All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Version>2.0.0</Version>
+    <RepositoryUrl>https://github.com/mgaffigan/OopWpf</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/mgaffigan/OopWpf</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   
   <!-- Logo & signing -->

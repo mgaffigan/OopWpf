@@ -64,8 +64,6 @@ namespace Itp.WpfCrossProcess.IPC
             this.Target = disp;
         }
 
-        public string Test => "Hello world";
-
         // IntPtr is not supported in IDispatch, but HWND's may not exceed 32 bit
         // https://learn.microsoft.com/en-us/windows/win32/winprog64/interprocess-communication?redirectedfrom=MSDN
         public int Hwnd => checked((int)Target.Hwnd);
