@@ -14,7 +14,8 @@ shortcuts are forwarded across process boundaries.
 ## IPC via COM (IDispatch registration-free)
 
 The example application demonstrates using `IDispatch` to avoid having to
-register COM Interfaces.
+register COM Interfaces.  Note: IDispatch is not possible between netcore 
+and netfx.  Use `IUnknown` with registration instead.
 
 ## IPC via COM (Traditional Registration)
 
