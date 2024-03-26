@@ -1,5 +1,7 @@
 # ITP WPF Out-of-process
 
+[![Nuget](https://img.shields.io/nuget/v/Itp.WpfCrossProcess.Common)](https://www.nuget.org/packages/Itp.WpfCrossProcess.Common)
+
 Library which allows for hosting a WPF control in a different process 
 than the main application.  This can be useful if the control is prone to
 crashing, or if the control is running in a different bitness or runtime.
