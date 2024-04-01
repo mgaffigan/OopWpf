@@ -23,3 +23,12 @@ and netfx.  Use `IUnknown` with registration instead.
 
 You may host an out-of-process server via COM.  See [COM.md](docs/COM.md) 
 for details.
+
+## Resize insulator
+
+To improve performance, use `ResizeInsulator` to prevent the out-of-process
+control from changing size during a resize move.  During the resize, layout
+is suspended and the resize is not applied till the resize ends.
+
+`ResizeInsulator` must be placed in the hosting window above `ImportedVisualHost`.
+See the example application for usage.
