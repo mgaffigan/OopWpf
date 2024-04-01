@@ -25,6 +25,7 @@ namespace Itp.WpfCrossProcess
         public ExportedVisual(UIElement rootVisual)
         {
             this.RootVisual = rootVisual ?? throw new ArgumentNullException(nameof(rootVisual));
+            rootVisual.Dispatcher.VerifyAccess();
             this.Insulator = new SizeInsulator(rootVisual, this);
             var parameters = new HwndSourceParameters("AddIn")
             {
@@ -73,6 +74,7 @@ namespace Itp.WpfCrossProcess
 
         void IWpfCrossChild.Shutdown()
         {
+            RootVisual.Dispatcher.VerifyAccess();
             ShutdownInternal();
             source.Dispose();
         }
@@ -86,6 +88,8 @@ namespace Itp.WpfCrossProcess
 
         bool IWpfCrossChild.TabInto(/* FocusNavigationDirection */ int direction, ref bool wrapped)
         {
+            RootVisual.Dispatcher.VerifyAccess();
+
             var req = new TraversalRequest((FocusNavigationDirection)direction) { Wrapped = wrapped };
             var result = this.keyboardInputSink.TabInto(req);
             wrapped = req.Wrapped;
@@ -94,12 +98,25 @@ namespace Itp.WpfCrossProcess
 
         void IWpfCrossChild.ConnectToHost(IWpfCrossHost host)
         {
+            RootVisual.Dispatcher.VerifyAccess();
+
             this.Host = host;
             keyboardInputSink.KeyboardInputSite = new SiteProxy(host, keyboardInputSink);
         }
 
-        void IWpfCrossChild.Measure(ref double w, ref double h) => this.Insulator.MeasureFromHost(ref w, ref h);
-        void IWpfCrossChild.Arrange(double w, double h) => this.Insulator.TakeSize(new Size(w, h));
+        void IWpfCrossChild.Measure(ref double w, ref double h)
+        {
+            RootVisual.Dispatcher.VerifyAccess();
+
+            this.Insulator.MeasureFromHost(ref w, ref h);
+        }
+
+        void IWpfCrossChild.Arrange(double w, double h)
+        {
+            RootVisual.Dispatcher.VerifyAccess();
+
+            this.Insulator.TakeSize(new Size(w, h));
+        }
 
         private class SizeInsulator : Decorator
         {

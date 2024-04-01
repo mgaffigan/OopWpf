@@ -10,7 +10,7 @@
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <Title>ITP WPF Cross Process</Title>
     <Description>Controls for running WPF controls in a different process, composed visually in a main app.</Description>
-    <Version>2.0.0</Version>
+    <Version>2.0.1</Version>
   </PropertyGroup>
   <Import Project="..\assets\EsattoCSCommon.targets" />
 

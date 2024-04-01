@@ -82,9 +82,7 @@ namespace Itp.WpfCrossProcess
             public void OnActivated()
             {
                 // Shouldn't set keyboard focus, since keyboard focus is outside of our scope.
-                var kf = Keyboard.FocusedElement;
                 var focusManager = FocusManager.GetFocusScope(Parent);
-                var prev = FocusManager.GetFocusedElement(focusManager);
                 FocusManager.SetFocusedElement(focusManager, null);
             }
 
