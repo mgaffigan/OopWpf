@@ -1,0 +1,22 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Module Id="Itp.WpfCrossProcess" Guid="9f6fecb2-d1fe-4bd7-82b7-26d309bb9939" Language="1033" Version="1.0.0.0">
+    <SummaryInformation Manufacturer="ITT WPF Cross Process" />
+
+    <StandardDirectory Id="CommonFilesFolder">
+      <Directory Id="ModuleDir" Name="Itp.WpfCrossProcess"/>
+    </StandardDirectory>
+
+    <Component Directory="ModuleDir" Guid="5e209068-13ec-4c37-96f7-65414c2d21e6">
+      <File Source="$(var.Itp.WpfCrossProcess.Common.TargetDir)Itp.WpfCrossProcess.Common.dll" KeyPath="yes" />
+    </Component>
+
+    <Component Directory="ModuleDir" Guid="831A7F34-8A9A-4220-9414-1297F0E9850F">
+      <File Source="$(var.Itp.WpfCrossProcess.Common.TargetDir)Itp.WpfCrossProcess.Common.tlb" KeyPath="yes">
+        <TypeLib Id="C348704A-E901-4E7F-8B48-0DBDDE1AEAE5" Language="1033" Description="Itp.WpfCrossProcess.Common" MajorVersion="1" MinorVersion="0">
+          <Interface Id="6A3968B5-FEBC-417F-8294-32C3D94B184D" Name="IWpfCrossHost"/>
+          <Interface Id="6A3968B5-FEBC-417F-8294-32C3D94B184C" Name="IWpfCrossChild"/>
+        </TypeLib>
+      </File>
+    </Component>
+  </Module>
+</Wix>
